@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaza Chronicle</title>
+    <meta name="description"
+        content="A comprehensive chronicle of Gaza's history, key events, and perspectives. Stay informed with live news updates.">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Leaflet Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+
+<body>
+    <div class="app">
+        <!-- Navigation -->
+        <nav class="main-nav" aria-label="Main navigation">
+            <div class="nav-brand">
+                <!-- Palestinian Watermelon Symbol -->
+                <div class="brand-symbol">
+                    <img src="logo.png" alt="Gaza Chronicle Logo" class="brand-logo">
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">Gaza Chronicle</span>
+                    <span class="brand-subtitle">A Historical Record</span>
+                </div>
+            </div>
+
+            <div class="nav-tabs" role="tablist">
+                <button class="nav-tab active" role="tab" aria-selected="true" data-tab="overview">Overview</button>
+                <button class="nav-tab" role="tab" aria-selected="false" data-tab="timeline">Timeline</button>
+                <button class="nav-tab" role="tab" aria-selected="false" data-tab="context">Context</button>
+                <button class="nav-tab" role="tab" aria-selected="false" data-tab="news">Live News</button>
+            </div>
+
+            <div class="nav-actions">
+                <button class="nav-share" aria-label="Share">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="18" cy="5" r="3" />
+                        <circle cx="6" cy="12" r="3" />
+                        <circle cx="18" cy="19" r="3" />
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Tab Panels -->
+        <main class="tab-content">
+
+            <!-- Overview Tab -->
+            <section class="tab-panel active" id="panel-overview" role="tabpanel">
+                <header class="hero">
+                    <div class="hero-content">
+                        <h1 class="hero-title">The Gaza War</h1>
+                        <p class="hero-subtitle">A comprehensive chronicle documenting the historical context, key
+                            events, and humanitarian impact of the conflict in Gaza.</p>
+                        <div class="hero-stats">
+                            <div class="hero-stat">
+                                <span class="hero-stat-value">2007</span>
+                                <span class="hero-stat-label">Blockade Began</span>
+                            </div>
+                            <div class="hero-stat-divider"></div>
+                            <div class="hero-stat">
+                                <span class="hero-stat-value">2.1M</span>
+                                <span class="hero-stat-label">Population</span>
+                            </div>
+                            <div class="hero-stat-divider"></div>
+                            <div class="hero-stat">
+                                <span class="hero-stat-value">365 km²</span>
+                                <span class="hero-stat-label">Territory</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="map-fade-wrapper">
+                            <div id="gaza-map-interactive" class="gaza-map-interactive"></div>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="overview-grid">
+                    <article class="overview-card featured">
+                        <span class="card-label">Background</span>
+                        <h2>Understanding the Conflict</h2>
+                        <p>The Gaza Strip, a 41-kilometer long and 6-12 kilometer wide territory along the Mediterranean
+                            coast, has been at the center of the Israeli-Palestinian conflict for decades. Home to over
+                            2 million Palestinians, it has faced a blockade since 2007.</p>
+                        <p>The current escalation began on October 7, 2023, marking a significant turning point in the
+                            ongoing conflict.</p>
+                    </article>
+
+                    <article class="overview-card">
+                        <span class="card-label">Humanitarian</span>
+                        <h3>Crisis Overview</h3>
+                        <p>The conflict has created one of the world's most severe humanitarian emergencies, with
+                            widespread displacement, infrastructure damage, and limited access to essential services.
+                        </p>
+                    </article>
+
+                    <article class="overview-card">
+                        <span class="card-label">International</span>
+                        <h3>Global Response</h3>
+                        <p>The international community has called for ceasefires, humanitarian corridors, and diplomatic
+                            solutions while providing aid and engaging in ongoing negotiations.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Timeline Tab -->
+            <section class="tab-panel" id="panel-timeline" role="tabpanel" hidden>
+                <header class="section-header">
+                    <h1>Historical Timeline</h1>
+                    <p>Key events that shaped the Gaza conflict</p>
+                </header>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">1948</div>
+                        <div class="timeline-content">
+                            <h3><a href="https://en.wikipedia.org/wiki/Nakba" target="_blank"
+                                    rel="noopener noreferrer">The Nakba</a></h3>
+                            <p>Approximately 700,000 Palestinians were displaced during the 1948 Arab-Israeli War. Many
+                                refugees fled to Gaza, dramatically increasing its population.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">1967</div>
+                        <div class="timeline-content">
+                            <h3><a href="https://en.wikipedia.org/wiki/Six-Day_War" target="_blank"
+                                    rel="noopener noreferrer">Six-Day War</a></h3>
+                            <p>Israel captured the Gaza Strip from Egypt during the Six-Day War, beginning a military
+                                occupation that would last for decades.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">1987</div>
+                        <div class="timeline-content">
+                            <h3><a href="https://en.wikipedia.org/wiki/First_Intifada" target="_blank"
+                                    rel="noopener noreferrer">First Intifada</a></h3>
+                            <p>A Palestinian uprising began in Gaza before spreading to the West Bank, lasting until
+                                1993 and the Oslo Accords.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2005</div>
+                        <div class="timeline-content">
+                            <h3><a href="https://en.wikipedia.org/wiki/Israeli_disengagement_from_Gaza" target="_blank"
+                                    rel="noopener noreferrer">Israeli Disengagement</a></h3>
+                            <p>Israel unilaterally withdrew its military forces and settlers from Gaza, though
+                                maintained control over borders, airspace, and coastal waters.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2007</div>
+                        <div class="timeline-content">
+                            <h3><a href="https://en.wikipedia.org/wiki/Blockade_of_the_Gaza_Strip" target="_blank"
+                                    rel="noopener noreferrer">Blockade Begins</a></h3>
+                            <p>Following Hamas's takeover of Gaza, Israel and Egypt imposed a blockade that severely
+                                restricted the movement of people and goods.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2008-2009</div>
+                        <div class="timeline-content">
+                            <h3><a href="https://en.wikipedia.org/wiki/Gaza_War_(2008–2009)" target="_blank"
+                                    rel="noopener noreferrer">Operation Cast Lead</a></h3>
+                            <p>A 22-day Israeli military offensive launched in response to rocket fire. The conflict
+                                resulted in approximately 1,400 Palestinian deaths and 13 Israeli deaths, with
+                                significant damage to Gaza's infrastructure including hospitals and schools.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2014</div>
+                        <div class="timeline-content">
+                            <h3><a href="https://en.wikipedia.org/wiki/2014_Gaza_War" target="_blank"
+                                    rel="noopener noreferrer">Operation Protective Edge</a></h3>
+                            <p>A 50-day conflict that became the deadliest Gaza war at the time. Over 2,200 Palestinians
+                                and 73 Israelis were killed. The UN estimated 100,000 Gazans were left homeless, with
+                                over 18,000 housing units destroyed or severely damaged.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023</div>
+                        <div class="timeline-content">
+                            <h3><a href="https://en.wikipedia.org/wiki/Israel–Hamas_war" target="_blank"
+                                    rel="noopener noreferrer">October 7 Attack & Response</a></h3>
+                            <p>Hamas launched a large-scale attack on southern Israel. Israel responded with a military
+                                campaign in Gaza that continues to the present day.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Context Tab -->
+            <section class="tab-panel" id="panel-context" role="tabpanel" hidden>
+                <header class="section-header">
+                    <h1>Understanding the Context</h1>
+                    <p>Key factors and perspectives in the conflict</p>
+                </header>
+
+                <div class="context-grid">
+                    <article class="context-card">
+                        <div class="context-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M3 21h18M3 7v1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7H3l2-4h14l2 4M5 21V10.87M19 21V10.87" />
+                            </svg>
+                        </div>
+                        <h3>Economic Impact</h3>
+                        <p>The blockade has severely impacted Gaza's economy, with unemployment rates exceeding 45% and
+                            limited access to international markets. Essential supplies including fuel, medicine, and
+                            construction materials face significant restrictions.</p>
+                    </article>
+
+                    <article class="context-card">
+                        <div class="context-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                        </div>
+                        <h3>Demographics</h3>
+                        <p>Gaza is one of the most densely populated areas in the world. Nearly 70% of its population
+                            are refugees or descendants of refugees from the 1948 war, living in eight refugee camps.
+                        </p>
+                    </article>
+
+                    <article class="context-card">
+                        <div class="context-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="2" y1="12" x2="22" y2="12" />
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                            </svg>
+                        </div>
+                        <h3>International Law</h3>
+                        <p>The situation in Gaza involves complex questions of international humanitarian law, including
+                            debates about occupation, blockade legality, and the protection of civilians in armed
+                            conflict.</p>
+                    </article>
+
+                    <article class="context-card">
+                        <div class="context-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                            </svg>
+                        </div>
+                        <h3>Healthcare</h3>
+                        <p>Gaza's healthcare system has been under immense pressure, with hospitals facing shortages of
+                            medicine, equipment, and fuel for generators. The ongoing conflict has made medical access
+                            increasingly difficult.</p>
+                    </article>
+
+                    <article class="context-card">
+                        <div class="context-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                            </svg>
+                        </div>
+                        <h3>Education</h3>
+                        <p>Despite challenges, Gaza has maintained high literacy rates. However, schools have been
+                            damaged or used as shelters, and the psychological impact on children remains a serious
+                            concern.</p>
+                    </article>
+
+                    <article class="context-card">
+                        <div class="context-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                        </div>
+                        <h3>Displacement</h3>
+                        <p>The current conflict has caused unprecedented internal displacement, with the majority of
+                            Gaza's population forced to flee their homes, often multiple times.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- News Tab -->
+            <section class="tab-panel" id="panel-news" role="tabpanel" hidden>
+                <header class="section-header news-header">
+                    <div>
+                        <h1>Live News Updates</h1>
+                        <p>Latest headlines from BBC World News</p>
+                    </div>
+                </header>
+
+                <!-- Stats Bar -->
+                <div class="stats-bar">
+                    <div class="stat">
+                        <span class="stat-value" id="article-count">--</span>
+                        <span class="stat-label">Articles</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="last-updated">--</span>
+                        <span class="stat-label">Last Updated</span>
+                    </div>
+                    <button class="refresh-btn" id="refresh-btn">
+                        <span class="refresh-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
+                                <path d="M21 3v5h-5" />
+                            </svg>
+                        </span>
+                        Refresh
+                    </button>
+                </div>
+
+                <!-- Section Filters -->
+                <nav class="section-filters" id="section-filters" aria-label="Article sections">
+                    <button class="filter-btn active" data-section="all">All</button>
+                </nav>
+
+                <!-- Loading State -->
+                <div class="loading hidden" id="loading" aria-live="polite">
+                    <div class="spinner" role="status"></div>
+                    <p>Fetching latest headlines...</p>
+                </div>
+
+                <!-- Error State -->
+                <div class="error hidden" id="error" role="alert">
+                    <div class="error-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                    </div>
+                    <p>Failed to load headlines. Please try again.</p>
+                    <button class="retry-btn" onclick="fetchNews()">Retry</button>
+                </div>
+
+                <!-- Headlines Grid -->
+                <div class="headlines-grid" id="headlines-grid" aria-label="News articles"></div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="brand-symbol small">
+                        <img src="logo.png" alt="Gaza Chronicle" class="brand-logo">
+                    </div>
+                    <span>Gaza Chronicle</span>
+                </div>
+                <p class="footer-text">News data sourced from <a href="https://www.bbc.com/news/topics/c2vdnvdg6xxt"
+                        target="_blank" rel="noopener noreferrer">BBC News</a></p>
+                <p class="footer-disclaimer">This site aims to provide factual, historical information for educational
+                    purposes.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
