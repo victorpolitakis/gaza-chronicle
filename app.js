@@ -29,7 +29,12 @@ navTabs.forEach(tab => {
             targetPanel.classList.add('active');
             targetPanel.hidden = false;
 
-
+            // If switching back to Overview, fix map size
+            if (targetTab === 'overview' && mapInstance) {
+                setTimeout(() => {
+                    mapInstance.invalidateSize();
+                }, 100);
+            }
 
             // Update Page Title
             const titles = {
@@ -401,10 +406,35 @@ document.querySelector('.nav-share')?.addEventListener('click', async () => {
 // ========================================
 // Initialize Map
 // ========================================
-// Map is now embedded via iframe in HTML
+let mapInstance; // Global reference for resizing
+
 function initMap() {
-    // Legacy placeholder
-    return;
+    const mapElement = document.getElementById('gaza-map-interactive');
+    if (!mapElement || typeof L === 'undefined') return;
+
+    // Center on Gaza Strip
+    mapInstance = L.map('gaza-map-interactive', {
+        center: [31.4, 34.38], // Approximately center of Gaza Strip
+        zoom: 9,
+        scrollWheelZoom: false, // Prevent page scroll hijack
+        zoomControl: false // Custom placement below
+    });
+
+    // Add Esri World Imagery (Satellite) for realistic look
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+        maxZoom: 19
+    }).addTo(mapInstance);
+
+    // Add Labels Overlay so users know where they are
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 19
+    }).addTo(mapInstance);
+
+    // Add zoom control to bottom right
+    L.control.zoom({
+        position: 'bottomright'
+    }).addTo(mapInstance);
 }
 
 // Initialize
