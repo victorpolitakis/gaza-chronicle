@@ -121,3 +121,50 @@
         margin-bottom: var(--space-1);
     }
 }
+
+/* ========================================
+   Mobile Landscape Fixes
+   ======================================== */
+@media (max-width: 900px) and (orientation: landscape) {
+    .hero {
+        grid-template-columns: 1fr 1fr;
+        /* Side by side again */
+        align-items: start;
+        gap: var(--space-4);
+    }
+
+    .hero-content {
+        order: 1;
+    }
+
+    .hero-visual {
+        order: 2;
+        margin-top: 0;
+        height: 100%;
+        min-height: 250px;
+    }
+
+    .map-fade-wrapper {
+        height: 100%;
+    }
+}
+
+/* ========================================
+   Scroll Indicators for News Filters
+   ======================================== */
+.section-filters-wrapper {
+    position: relative;
+    margin-bottom: var(--space-4);
+}
+
+/* We need to wrap the filters in HTML for this to work perfectly, 
+   but for now let's apply a fading mask to the container itself if possible.
+   A simple approach on the container: */
+@media (max-width: 768px) {
+    .section-filters {
+        /* Add breathing room for the shadow */
+        padding-right: var(--space-8);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    }
+}

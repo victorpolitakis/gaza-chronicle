@@ -510,6 +510,14 @@ img {
     border: 3px solid var(--accent);
     border-radius: 50%;
     z-index: 2;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+/* Timeline dot hover effect */
+.timeline-item:hover::after {
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(26, 107, 61, 0.2);
+    transition: all var(--duration-fast) var(--ease-out);
 }
 
 .timeline-date {
@@ -523,17 +531,29 @@ img {
 }
 
 .timeline-content {
-    padding: var(--space-6);
     background: var(--bg-elevated);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
     margin-left: var(--space-6);
     transition: all var(--duration-normal) var(--ease-out);
+    position: relative;
+    /* Removed padding here, moved to anchor */
+    overflow: hidden;
+    /* Ensure rounded corners for hover */
+}
+
+/* Make actual link fill the card */
+.timeline-link {
+    display: block;
+    padding: var(--space-6);
+    text-decoration: none;
+    color: inherit;
 }
 
 .timeline-content:hover {
     border-color: var(--border-default);
     box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
 }
 
 .timeline-content h3 {
@@ -542,15 +562,11 @@ img {
     font-weight: 600;
     margin-bottom: var(--space-3);
     color: var(--text-primary);
-}
-
-.timeline-content h3 a {
-    color: var(--text-primary);
-    text-decoration: none;
     transition: color var(--duration-fast) var(--ease-out);
 }
 
-.timeline-content h3 a:hover {
+/* Link hover effect */
+.timeline-content:hover h3 {
     color: var(--accent);
 }
 
@@ -568,7 +584,9 @@ img {
     gap: var(--space-6);
 }
 
-.context-card {
+.context-card,
+.overview-card {
+    /* Make overview cards interactive too */
     padding: var(--space-8);
     background: var(--bg-elevated);
     border: 1px solid var(--border-subtle);
@@ -576,7 +594,8 @@ img {
     transition: all var(--duration-normal) var(--ease-out);
 }
 
-.context-card:hover {
+.context-card:hover,
+.overview-card:hover {
     border-color: var(--border-default);
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
