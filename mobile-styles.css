@@ -1,0 +1,49 @@
+/* ========================================
+   Mobile Optimizations
+   ======================================== */
+@media (max-width: 768px) {
+
+    /* 1. Header Layout - Place Share Button Top Right */
+    .main-nav {
+        position: relative;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: var(--space-4);
+    }
+
+    .nav-actions {
+        position: absolute;
+        top: var(--space-3);
+        right: var(--space-4);
+        margin-left: 0;
+    }
+
+    /* 2. Hero Section - Reorder Map */
+    .hero {
+        grid-template-columns: 1fr;
+        /* Stack vertically */
+    }
+
+    .hero-content {
+        order: 1;
+        /* Title first */
+    }
+
+    .hero-visual {
+        order: 2;
+        /* Map second */
+        margin-top: var(--space-4);
+    }
+
+    /* 3. Hero Visual - Map Position below Intro Text */
+    /* Handled by order: 2 above, but let's ensure full width */
+    .hero-visual {
+        width: 100%;
+        height: 300px;
+        /* Smaller height for mobile */
+    }
+
+    .map-fade-wrapper {
+        height: 100%;
+    }
+}

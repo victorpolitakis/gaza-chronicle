@@ -29,6 +29,13 @@ navTabs.forEach(tab => {
             targetPanel.classList.add('active');
             targetPanel.hidden = false;
 
+            // If switching back to Overview, fix map size
+            if (targetTab === 'overview' && mapInstance) {
+                setTimeout(() => {
+                    mapInstance.invalidateSize();
+                }, 100);
+            }
+
             // Update Page Title
             const titles = {
                 overview: 'Gaza Chronicle - Overview',
@@ -399,12 +406,14 @@ document.querySelector('.nav-share')?.addEventListener('click', async () => {
 // ========================================
 // Initialize Map
 // ========================================
+let mapInstance; // Global reference for resizing
+
 function initMap() {
     const mapElement = document.getElementById('gaza-map-interactive');
     if (!mapElement || typeof L === 'undefined') return;
 
     // Center on Gaza Strip
-    const map = L.map('gaza-map-interactive', {
+    mapInstance = L.map('gaza-map-interactive', {
         center: [31.4, 34.38], // Approximately center of Gaza Strip
         zoom: 9,
         scrollWheelZoom: false, // Prevent page scroll hijack
@@ -415,12 +424,12 @@ function initMap() {
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community',
         maxZoom: 19
-    }).addTo(map);
+    }).addTo(mapInstance);
 
     // Add zoom control to bottom right
     L.control.zoom({
         position: 'bottomright'
-    }).addTo(map);
+    }).addTo(mapInstance);
 }
 
 // Initialize
