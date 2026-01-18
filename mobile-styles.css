@@ -8,29 +8,40 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        padding: var(--space-4) 0;
+        padding: var(--space-4) 0 0 0;
+        /* Remove bottom padding */
         gap: var(--space-4);
         position: relative;
+        margin-bottom: var(--space-2);
+        /* Reduced gap */
     }
 
-    /* Enhance Mobile Tabs - Scrollable if needed */
+    /* Enhance Mobile Tabs - Fit to Screen */
     .nav-tabs {
         width: 100%;
-        overflow-x: auto;
-        padding-bottom: 4px;
-        /* Space for scrollbar if visible */
-        -webkit-overflow-scrolling: touch;
+        display: flex;
+        justify-content: space-between;
+        /* Spread evenly */
+        padding-bottom: 0;
         border-radius: 0;
-        /* Full width feel */
         background: transparent;
-        justify-content: flex-start;
+        overflow-x: visible;
+        /* No scrolling needed */
+        flex-wrap: nowrap;
+        /* Keep on one line if they fit, which they should */
     }
 
     .nav-tab {
-        flex: 0 0 auto;
-        font-size: var(--text-sm);
-        padding: var(--space-2) var(--space-3);
+        flex: 1;
+        /* Grow to fill space */
+        text-align: center;
+        padding: var(--space-2) 0;
+        /* reduce horizontal padding to fit */
+        font-size: var(--text-xs);
+        /* Slightly smaller text if needed to fit */
     }
+
+
 
     /* Share Button floating top right */
     .nav-actions {
