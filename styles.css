@@ -281,7 +281,7 @@ img {
     display: grid;
     grid-template-columns: 1fr 520px;
     gap: var(--space-2);
-    padding: var(--space-10) 0;
+    padding: var(--space-4) 0 var(--space-10) 0;
     border-bottom: 1px solid var(--border-subtle);
     margin-bottom: var(--space-10);
     align-items: center;
@@ -433,11 +433,12 @@ img {
 }
 
 /* ========================================
-   Section Header
+   Section Headers
    ======================================== */
 .section-header {
-    padding: var(--space-8) 0;
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
+    padding-top: var(--space-4);
+    /* Add some breathing room */
     border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -447,6 +448,7 @@ img {
     font-weight: 700;
     letter-spacing: -0.02em;
     margin-bottom: var(--space-2);
+    color: var(--text-primary);
 }
 
 .section-header p {
