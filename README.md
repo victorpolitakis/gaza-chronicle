@@ -13,7 +13,7 @@ A comprehensive historical chronicle and live news dashboard documenting the con
 ## Live Demo
 
 This project is designed to be hosted on GitHub Pages.
-[Link to your live demo will appear here after deployment]
+[Link to the project's official webpage](https://victorpolitakis.github.io/gaza-chronicle/)
 
 ## Local Development
 
