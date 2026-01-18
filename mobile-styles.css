@@ -46,4 +46,48 @@
     .map-fade-wrapper {
         height: 100%;
     }
+
+    /* 4. News Filters - Horizontal Carousel */
+    .section-filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: var(--space-2);
+        margin-bottom: var(--space-4);
+        border-bottom: none;
+        /* Hide scrollbar but keep functionality */
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+
+    .section-filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-btn {
+        flex: 0 0 auto;
+        /* Don't shrink */
+        background: var(--bg-surface);
+        border-radius: 20px;
+        /* Pill shape */
+        padding: var(--space-2) var(--space-4);
+    }
+
+    .filter-btn.active {
+        background: var(--text-primary);
+        color: var(--bg-base);
+    }
+
+    /* 5. Reduce Gap for Live News Header */
+    .section-header.news-header {
+        margin-bottom: var(--space-3);
+        /* Reduced from default */
+    }
+
+    .section-header h1 {
+        font-size: var(--text-2xl);
+        /* Slightly smaller on mobile */
+        margin-bottom: var(--space-1);
+    }
 }
