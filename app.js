@@ -98,13 +98,14 @@ async function fetchNews() {
 
         // Use allorigins.win as a CORS proxy to fetch the BBC page
         // accessing the API directly won't work due to CORS
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://www.bbc.com/news/topics/${topicId}`)}`;
+        // Switching to 'corsproxy.io' as it is often more reliable
+        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(`https://www.bbc.com/news/topics/${topicId}`)}`;
 
         const response = await fetch(proxyUrl);
         if (!response.ok) throw new Error('Failed to fetch from proxy');
 
-        const data = await response.json();
-        const html = data.contents;
+        // corsproxy.io returns the raw HTML text directly, not wrapped in JSON
+        const html = await response.text();
 
         // Extract JSON data from the script tag (same logic as the backend script)
         const jsonMatch = html.match(/<script id="__NEXT_DATA__" type="application\/json">(.+?)<\/script>/s);
@@ -395,6 +396,9 @@ document.querySelector('.nav-share')?.addEventListener('click', async () => {
 // ========================================
 // Initialize Map
 // ========================================
+// ========================================
+// Initialize Map
+// ========================================
 function initMap() {
     const mapElement = document.getElementById('gaza-map-interactive');
     if (!mapElement || typeof L === 'undefined') return;
@@ -417,9 +421,6 @@ function initMap() {
     L.control.zoom({
         position: 'bottomright'
     }).addTo(map);
-
-    // Optional: Add a boundary for Gaza (approximate polygon if needed, or just let users explore)
-    // For now, let's keep it clean
 }
 
 // Initialize
